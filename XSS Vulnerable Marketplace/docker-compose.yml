@@ -1,4 +1,3 @@
-
 version: '3.9'
 services:
   db:
@@ -10,10 +9,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
-      # <Port exposed> : < MySQL Port running inside container>
       - '3306:3306'
-    expose:
-      - '3306'
     volumes:
     - ./db:/docker-entrypoint-initdb.d
   php:
@@ -24,9 +20,7 @@ services:
     #  dockerfile: php-dockerfile
     #image: php:7.4-apache-mysqli
     ports:
-      - 801:80
-    links:
-      - db
+      - '801:80'
     volumes:
     - ./php:/var/www/html
   phpmyadmin:
@@ -34,11 +28,7 @@ services:
     image: phpmyadmin
     restart: always
     ports:
-      - 3307:80
+      - '3307:80'
     environment:
       - PMA_ARBITRARY=1
-    depends_on:
-      - db
-
-
 networks: {}
